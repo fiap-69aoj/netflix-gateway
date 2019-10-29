@@ -1,6 +1,14 @@
+spring:
+  application:
+    name: netflix-gateway
+
+server:
+  port: 8091
+
 zuul:
   routes:
-    product:
-      path: /product/**
-      url: http://localhost:8080
-      stripPrefix: true
+    user:
+      path: /user/**
+      serviceId: NETFLIX-USER
+#      url: http://localhost:8080
+#      stripPrefix: true

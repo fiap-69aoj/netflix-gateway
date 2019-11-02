@@ -38,7 +38,6 @@ public class RedirectFilter extends ZuulFilter {
     public Object run () {
         RequestContext ctx = RequestContext.getCurrentContext();
         final String requestURI = this.urlPathHelper.getPathWithinApplication(ctx.getRequest());
-        final String requestURL = ctx.getRequest().getRequestURL().toString();
 
         String serviceId = String.format("netflix-%s", requestURI.replace("/", ""));
         List<ServiceInstance> instances = discoveryClient.getInstances(serviceId);
@@ -46,18 +45,17 @@ public class RedirectFilter extends ZuulFilter {
         final String urlToRedirect = instances.get(0).getUri().toString() + requestURI;
 
         HttpServletRequestWrapper httpServletRequestWrapper = new HttpServletRequestWrapper(ctx.getRequest()) {
-
             public String getRequestURI () {
                 if (requestURI != null && !requestURI.equals("/")) {
                     return requestURI;
                 }
                 return "/";
             }
-
             public StringBuffer getRequestURL () {
                 return new StringBuffer(urlToRedirect);
             }
         };
+        
         ctx.setRequest(httpServletRequestWrapper);
         HttpServletRequest request = ctx.getRequest();
         LOGGER.info("PreFilter: " + String

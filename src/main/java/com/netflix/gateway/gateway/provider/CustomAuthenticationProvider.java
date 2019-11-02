@@ -1,5 +1,8 @@
 package com.netflix.gateway.gateway.provider;
 
+import com.netflix.gateway.gateway.dto.UserResponse;
+import com.netflix.gateway.gateway.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,7 +11,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -20,6 +22,9 @@ import java.util.Collections;
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public Authentication authenticate(Authentication auth)
             throws AuthenticationException {
@@ -27,12 +32,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = auth.getCredentials()
                 .toString();
 
-        if ("user".equals(username) && "password".equals(password)) {
+        final UserResponse userResponse = userService.findUser(username, password);
+
+        if(userResponse != null) {
             return new UsernamePasswordAuthenticationToken
-                    (username, password, Collections.singleton(new SimpleGrantedAuthority("USER")));
-        } else if ("admin".equals(username) && "password".equals(password)) {
-            return new UsernamePasswordAuthenticationToken
-                    (username, password, Arrays.asList(new SimpleGrantedAuthority("USER"), new SimpleGrantedAuthority("ADMIN")));
+                                (userResponse.getName(), password, Collections.singleton(new SimpleGrantedAuthority("USER")));
         } else {
             throw new
                     BadCredentialsException("External system authentication failed");

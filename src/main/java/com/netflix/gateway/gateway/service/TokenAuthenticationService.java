@@ -7,7 +7,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -25,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
  * : $
  * @since 30/10/2019 23:11
  */
-@Component
 public class TokenAuthenticationService {
 
     static final long EXPIRATION_TIME = Duration.ofDays(10).toMillis();

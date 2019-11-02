@@ -1,6 +1,8 @@
-package com.netflix.gateway.gateway.security;
+package com.netflix.gateway.gateway.config;
 
 import com.netflix.gateway.gateway.provider.CustomAuthenticationProvider;
+import com.netflix.gateway.gateway.filter.JWTAuthenticationFilter;
+import com.netflix.gateway.gateway.filter.JWTLoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

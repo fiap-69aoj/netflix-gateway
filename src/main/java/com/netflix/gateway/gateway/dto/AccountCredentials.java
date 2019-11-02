@@ -1,4 +1,4 @@
-package com.netflix.gateway.gateway.security;
+package com.netflix.gateway.gateway.dto;
 
 /**
  * @author flaoliveira

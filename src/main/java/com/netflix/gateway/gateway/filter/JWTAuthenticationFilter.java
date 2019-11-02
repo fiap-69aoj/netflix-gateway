@@ -1,4 +1,4 @@
-package com.netflix.gateway.gateway.security;
+package com.netflix.gateway.gateway.filter;
 
 import com.netflix.gateway.gateway.service.TokenAuthenticationService;
 import org.springframework.security.core.Authentication;

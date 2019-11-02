@@ -1,6 +1,7 @@
-package com.netflix.gateway.gateway.security;
+package com.netflix.gateway.gateway.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.netflix.gateway.gateway.dto.AccountCredentials;
 import com.netflix.gateway.gateway.service.TokenAuthenticationService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,8 +25,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
-    private TokenAuthenticationService tokenAuthenticationService;
-
     public JWTLoginFilter (String url, AuthenticationManager authManager) {
         super(new AntPathRequestMatcher(url));
         setAuthenticationManager(authManager);
@@ -44,7 +43,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     protected void successfulAuthentication (HttpServletRequest request, HttpServletResponse response,
             FilterChain filterChain, Authentication auth) {
-        tokenAuthenticationService.addAuthentication(response, auth.getName(), auth.getAuthorities());
+        TokenAuthenticationService.addAuthentication(response, auth.getName(), auth.getAuthorities());
     }
 
 }

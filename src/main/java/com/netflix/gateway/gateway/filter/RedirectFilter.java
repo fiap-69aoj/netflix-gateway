@@ -3,13 +3,14 @@ package com.netflix.gateway.gateway.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.http.HttpServletRequestWrapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.util.UrlPathHelper;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 //@Component
 public class RedirectFilter extends ZuulFilter {
 
-    private Logger LOGGER = Logger.getLogger(RedirectFilter.class.getCanonicalName());
+    private Logger LOGGER = LoggerFactory.getLogger(RedirectFilter.class);
 
     private UrlPathHelper urlPathHelper = new UrlPathHelper();
 
@@ -58,9 +59,8 @@ public class RedirectFilter extends ZuulFilter {
         
         ctx.setRequest(httpServletRequestWrapper);
         HttpServletRequest request = ctx.getRequest();
-        LOGGER.info("PreFilter: " + String
-                .format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
 
+        LOGGER.info("C=RedirectFilter, M=run, Method={}, Redirect={}", request.getMethod(),request.getRequestURL().toString());
         return null;
     }
 

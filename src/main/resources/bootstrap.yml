@@ -1,15 +1,14 @@
 spring:
   application:
     name: netflix-gateway
-
+  profiles:
+    active:
+      dev
 server:
   port: 8091
-
 zuul:
   sensitiveHeaders: Cookie,Set-Cookie
   routes:
     user:
       path: /user/**
       serviceId: NETFLIX-USER
-#      url: http://localhost:8080
-#      stripPrefix: true

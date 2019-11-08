@@ -32,7 +32,7 @@ public class UserService {
 
     public UserResponse findUser(final String username, final String password) {
         List<ServiceInstance> instances = discoveryClient.getInstances("NETFLIX-USER");
-        String serviceUri = String.format("%s/users", instances.get(0).getUri().toString());
+        String serviceUri = String.format("%s/", instances.get(0).getUri().toString());
 
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);

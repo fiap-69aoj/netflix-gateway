@@ -10,5 +10,5 @@ zuul:
   sensitiveHeaders: Cookie,Set-Cookie
   routes:
     user:
-      path: /user/**
+      path: /users/**
       serviceId: NETFLIX-USER

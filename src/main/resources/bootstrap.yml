@@ -5,10 +5,19 @@ spring:
     active:
       dev
 server:
-  port: 8091
+  port: 9091
 zuul:
   sensitiveHeaders: Cookie,Set-Cookie
   routes:
+    catalog:
+      path: /catalog/**
+      serviceId: NETFLIX-CATALOG
+    helpdesk:
+      path: /helpdesk/**
+      serviceId: NETFLIX-HELPDESK
     user:
-      path: /users/**
+      path: /user/**
       serviceId: NETFLIX-USER
+    order:
+      path: /order/**
+      serviceId: NETFLIX-ORDER
